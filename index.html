@@ -290,6 +290,17 @@
   /* вариант Б: текст сверху слева, лоток с инструментами выезжает шторкой снизу */
   .hero__copy.v-copy--top { bottom: auto; top: clamp(5.5rem, 15vh, 9rem); }
   .hero__tray img { object-position: 60% 60%; }
+  /* вертикальная панель разделов слева (на компьютере); на телефоне её нет */
+  .side { display: none; }
+  @media (min-width: 1100px) {
+    .v-page { padding-left: 13.5rem; }
+    .side { position: fixed; left: 0; top: 4.5rem; bottom: 0; width: 13.5rem; z-index: 25; display: flex; flex-direction: column; justify-content: center; gap: .2rem; padding: 0 1rem 2rem 1.25rem; border-right: 1px solid var(--v-hair); background: color-mix(in srgb, var(--v-canvas) 90%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+    .side a { position: relative; display: flex; align-items: center; min-height: 44px; padding: .35rem .75rem .35rem 1.1rem; border-radius: 10px; text-decoration: none; color: var(--v-ink-soft); font-size: var(--v-t-sm); font-weight: 500; line-height: 1.25; transition: color .16s var(--v-ease-out), background-color .16s var(--v-ease-out); }
+    .side a::before { content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 3px; border-radius: 2px; background: var(--v-accent); transform: scaleY(0); transition: transform .22s var(--v-ease-out); }
+    .side a:hover, .side a:focus-visible { color: var(--v-ink); background: color-mix(in srgb, var(--v-ink) 5%, transparent); }
+    .side a.is-active { color: var(--v-ink); font-weight: 600; }
+    .side a.is-active::before { transform: scaleY(1); }
+  }
   @media (max-width: 860px) and (max-height: 720px) { .chart__svg { max-height: 28svh; } .price__item p { display: none; } }
 
   /* ---- 5 · вопрос 4 «Кто будет лечить?»: карточки врачей, фото со спины, стерильность --- */
@@ -398,18 +409,20 @@
 
   <header class="bar">
     <a class="bar__mark" href="#top"><i aria-hidden="true"></i>Династия</a>
-    <nav class="qnav" aria-label="Разделы сайта">
-      <a href="#uslugi">Услуги</a>
-      <a href="#vizit">Как проходит приём</a>
-      <a href="#ceny">Цены</a>
-      <a href="#vrachi">Врачи</a>
-      <a href="#zapis">Контакты</a>
-    </nav>
     <div class="bar__right">
       <a class="bar__tel" href="tel:{{телефон}}">{{телефон}}</a>
       <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
     </div>
   </header>
+
+  <nav class="side" aria-label="Разделы сайта">
+    <a href="#uslugi">Услуги</a>
+    <a href="#bolno">Будет больно?</a>
+    <a href="#vizit">Что будете делать?</a>
+    <a href="#ceny">Сколько стоит?</a>
+    <a href="#vrachi">Кто лечит?</a>
+    <a href="#zapis">Когда прийти?</a>
+  </nav>
 
   <main>
 
@@ -792,6 +805,25 @@
       c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(c); } });
     });
   })();
+</script>
+<script>
+// подсветка активного раздела в боковой панели
+(function () {
+  var links = [].slice.call(document.querySelectorAll(".side a"));
+  if (!links.length) return;
+  var items = links.map(function (a) { return { a: a, s: document.querySelector(a.getAttribute("href")) }; }).filter(function (x) { return x.s; });
+  var raf = 0;
+  function mark() {
+    raf = 0;
+    var y = window.innerHeight * 0.4, cur = null;
+    items.forEach(function (x) { if (x.s.getBoundingClientRect().top <= y) cur = x; });
+    items.forEach(function (x) { x.a.classList.toggle("is-active", x === cur); });
+  }
+  function req() { if (!raf) raf = requestAnimationFrame(mark); }
+  window.addEventListener("scroll", req, { passive: true });
+  window.addEventListener("resize", req);
+  mark();
+})();
 </script>
 </body>
 </html>
