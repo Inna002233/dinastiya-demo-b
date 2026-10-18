@@ -64,7 +64,11 @@
   .qnav { display: flex; gap: var(--v-5); font-size: var(--v-t-sm); }
   .qnav a { text-decoration: none; color: var(--v-ink-soft); display: inline-flex; align-items: center; gap: .4em; min-height: 44px; transition: color .16s var(--v-ease-out); }
   .qnav a b { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xs); color: var(--v-accent-deep); font-variant-numeric: tabular-nums; }
-  @media (hover: hover) and (pointer: fine) { .qnav a:hover { color: var(--v-ink); } }
+  .qnav { gap: var(--v-6); }
+  .qnav a { color: var(--v-ink); font-weight: 500; position: relative; }
+  .qnav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 2px; background: var(--v-accent); transform: scaleX(0); transform-origin: left; transition: transform .22s var(--v-ease-out); }
+  @media (hover: hover) and (pointer: fine) { .qnav a:hover::after { transform: scaleX(1); } }
+  .qnav a:focus-visible::after { transform: scaleX(1); }
   .bar__right { display: flex; align-items: center; gap: var(--v-4); }
   .bar__tel { text-decoration: none; font-weight: 600; font-size: var(--v-t-sm); color: var(--v-ink); display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--v-2); white-space: nowrap; }
   .bar .v-btn { padding: .7em 1.3em; }
@@ -394,13 +398,12 @@
 
   <header class="bar">
     <a class="bar__mark" href="#top"><i aria-hidden="true"></i>Династия</a>
-    <nav class="qnav" aria-label="Пять вопросов до кресла">
+    <nav class="qnav" aria-label="Разделы сайта">
       <a href="#uslugi">Услуги</a>
-      <a href="#bolno"><b>1</b>Будет больно?</a>
-      <a href="#vizit"><b>2</b>Что будете делать?</a>
-      <a href="#ceny"><b>3</b>Сколько стоит?</a>
-      <a href="#vrachi"><b>4</b>Кто лечит?</a>
-      <a href="#zapis"><b>5</b>Когда прийти?</a>
+      <a href="#vizit">Как проходит приём</a>
+      <a href="#ceny">Цены</a>
+      <a href="#vrachi">Врачи</a>
+      <a href="#zapis">Контакты</a>
     </nav>
     <div class="bar__right">
       <a class="bar__tel" href="tel:{{телефон}}">{{телефон}}</a>
