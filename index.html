@@ -301,7 +301,10 @@
     .side a.is-active { color: var(--v-ink); font-weight: 600; }
     .side a.is-active::before { transform: scaleY(1); }
   }
+  .v-page .clean__fig figcaption { background: color-mix(in srgb, var(--v-surface) 90%, transparent); color: var(--v-ink); padding: .5rem .75rem; border-radius: 10px; left: var(--v-3); top: var(--v-3); }
   .v-page .who__fig figcaption { background: color-mix(in srgb, var(--v-surface) 90%, transparent); color: var(--v-ink); padding: .5rem .75rem; border-radius: 10px; left: var(--v-3); right: var(--v-3); top: var(--v-3); }
+  /* блок «Кто лечит» – палитра В (молочный + индиго), остальной сайт в палитре Б */
+  #vrachi { --v-canvas: #f4f5f9; --v-ink: #1e2233; --v-ink-soft: #5a5f74; --v-accent: #3b4fa3; --v-accent-ink: #f5f6fc; --v-accent-deep: #2f4088; --v-shadow-color: 36 42 70; background: #f4f5f9; color: var(--v-ink); }
   @media (max-width: 860px) and (max-height: 720px) { .chart__svg { max-height: 28svh; } .price__item p { display: none; } }
 
   /* ---- 5 · вопрос 4 «Кто будет лечить?»: карточки врачей, фото со спины, стерильность --- */
@@ -621,7 +624,7 @@
     </section>
 
     <!-- 5 · ДОКАЗАТЕЛЬСТВО: «Кто будет лечить?» – врачи (только факты от клиента) и кабинет -->
-    <section class="v-section" data-v-act="flow" data-v-drift="#f6f4f1" id="vrachi" aria-label="Вопрос 4: кто будет лечить?">
+    <section class="v-section" data-v-act="flow" data-v-drift="#f4f5f9" id="vrachi" aria-label="Вопрос 4: кто будет лечить?">
       <div class="v-wrap">
         <div class="who__head" data-v-in data-v-stagger="70">
           <span class="v-label"><span class="q">Вопрос 4</span> · Кто будет лечить?</span>
